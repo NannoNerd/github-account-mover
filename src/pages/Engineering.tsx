@@ -154,25 +154,104 @@ export default function Engineering() {
         </div>
       </section>
 
-      {/* Latest Engineering Video Section - 70% Width on Desktop */}
-      <section className="py-16 px-4 bg-muted/30">
+      {/* Latest Engineering Video Section - Dark Theme */}
+      <section className="py-16 px-4 bg-slate-900">
         <div className="w-full max-w-none mx-auto lg:max-w-[70%]">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-8">
+          <h2 className="text-3xl font-bold text-center text-white mb-8">
             Último Vídeo de Engenharia
           </h2>
-          <Card className="bg-card/80 border-border/50 backdrop-blur-sm">
+          <Card className="bg-slate-800/80 border-slate-700/50 backdrop-blur-sm">
             <CardContent className="p-6">
-              <div className="aspect-video bg-background/20 rounded-lg flex items-center justify-center mb-4">
-                <p className="text-muted-foreground">Vídeo em breve...</p>
+              <div className="aspect-video bg-slate-700/20 rounded-lg flex items-center justify-center mb-4">
+                <p className="text-slate-300">Vídeo em breve...</p>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">
+              <h3 className="text-xl font-semibold text-white mb-2">
                 Novos Recursos do AutoCAD Civil 3D 2024
               </h3>
-              <p className="text-muted-foreground">
+              <p className="text-slate-300">
                 Explore as últimas funcionalidades e melhorias do AutoCAD Civil 3D para projetos de engenharia civil.
               </p>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Engineering Projects Section - Light Theme */}
+      <section className="py-16 px-4 bg-background">
+        <div className="w-full max-w-none mx-auto lg:max-w-[70%]">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Projetos de Engenharia
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Explore nossos projetos práticos e casos de estudo em engenharia civil
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Sistema de Drenagem Urbana",
+                description: "Projeto completo de sistema de drenagem para área urbana com dimensionamento hidráulico.",
+                category: "Hidráulica",
+                image: "/placeholder.svg"
+              },
+              {
+                title: "Análise de Estabilidade de Taludes",
+                description: "Estudo geotécnico para análise de estabilidade em encostas com diferentes métodos.",
+                category: "Geotecnia",
+                image: "/placeholder.svg"
+              },
+              {
+                title: "Dimensionamento de Pavimento",
+                description: "Projeto de pavimentação rodoviária com análise de tráfego e dimensionamento estrutural.",
+                category: "Pavimentação",
+                image: "/placeholder.svg"
+              },
+              {
+                title: "Estrutura de Concreto Armado",
+                description: "Projeto estrutural completo de edifício residencial com cálculos e detalhamentos.",
+                category: "Estrutural",
+                image: "/placeholder.svg"
+              },
+              {
+                title: "Rede de Distribuição de Água",
+                description: "Sistema de abastecimento de água com dimensionamento de tubulações e reservatórios.",
+                category: "Hidráulica",
+                image: "/placeholder.svg"
+              },
+              {
+                title: "Terraplanagem e Movimento de Terra",
+                description: "Projeto de terraplanagem com cálculo de volumes e otimização de corte e aterro.",
+                category: "Topografia",
+                image: "/placeholder.svg"
+              }
+            ].map((project, index) => (
+              <Card key={index} className="hover:shadow-lg transition-all duration-300 hover-scale bg-card border-border">
+                <CardContent className="p-0">
+                  <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center mb-4">
+                    <span className="text-muted-foreground text-sm">Imagem do Projeto</span>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Badge variant="secondary" className="text-xs">
+                        {project.category}
+                      </Badge>
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {project.description}
+                    </p>
+                    <Button variant="outline" size="sm" className="w-full">
+                      Ver Projeto
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
