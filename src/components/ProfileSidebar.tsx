@@ -38,8 +38,9 @@ export function ProfileSidebar() {
 
   return (
     <Sidebar
-      className={state === "collapsed" ? "w-14" : "w-64"}
+      className={`${state === "collapsed" ? "w-14" : "w-64"} lg:relative lg:translate-x-0`}
       variant="sidebar"
+      side="left"
     >
       <SidebarContent className="bg-background border-r">
         <div className="p-4">

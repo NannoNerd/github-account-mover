@@ -18,24 +18,33 @@ export default function Profile() {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
-        {/* Sidebar */}
-        <ProfileSidebar />
+      <div className="min-h-screen flex w-full bg-background overflow-hidden">
+        {/* Sidebar - oculta em mobile */}
+        <div className="hidden lg:block">
+          <ProfileSidebar />
+        </div>
         
         {/* Main content */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-w-0">
           {/* Header com trigger do sidebar */}
-          <header className="h-14 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
-            <SidebarTrigger />
+          <header className="h-14 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 flex-shrink-0">
+            <div className="lg:hidden">
+              <SidebarTrigger />
+            </div>
             <div className="ml-4">
-              <h2 className="text-lg font-semibold text-foreground">Painel Administrativo</h2>
+              <h2 className="text-lg font-semibold text-foreground truncate">Painel Administrativo</h2>
             </div>
           </header>
           
           {/* Content area */}
-          <main className="flex-1 p-6 overflow-auto">
+          <main className="flex-1 p-4 lg:p-6 overflow-auto">
             <ContentManager />
           </main>
+        </div>
+
+        {/* Mobile sidebar overlay */}
+        <div className="lg:hidden">
+          <ProfileSidebar />
         </div>
       </div>
     </SidebarProvider>

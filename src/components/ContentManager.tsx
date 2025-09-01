@@ -249,9 +249,9 @@ export default function ContentManager() {
 
   const renderPostCard = (post: Post) => (
     <Card key={post.id} className="hover:shadow-md transition-shadow">
-      <CardContent className="p-4">
-        <div className="flex gap-4">
-          <div className="w-24 h-16 bg-muted rounded overflow-hidden flex-shrink-0">
+      <CardContent className="p-3 sm:p-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="w-full sm:w-24 h-32 sm:h-16 bg-muted rounded overflow-hidden flex-shrink-0">
             {post.cover_image_url ? (
               <img 
                 src={post.cover_image_url} 
@@ -266,57 +266,59 @@ export default function ContentManager() {
           </div>
           
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-foreground mb-1 truncate">
+                <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">
                   {post.excerpt}
                 </p>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Eye className="h-3 w-3" />
-                    {post.views_count}
+                    <span className="whitespace-nowrap">{post.views_count}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    {new Date(post.created_at).toLocaleDateString('pt-BR')}
+                    <span className="whitespace-nowrap">{new Date(post.created_at).toLocaleDateString('pt-BR')}</span>
                   </div>
                 </div>
               </div>
               
-              <div className="flex flex-col gap-1">
-                <Badge variant={post.published ? "default" : "secondary"}>
+              <div className="flex flex-col gap-1 sm:mt-0 mt-2">
+                <Badge variant={post.published ? "default" : "secondary"} className="text-xs w-fit">
                   {post.published ? "Publicado" : "Rascunho"}
                 </Badge>
               </div>
             </div>
             
-            <div className="flex items-center gap-2 mt-3">
+            <div className="flex flex-wrap items-center gap-2 mt-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setEditingPost(post)}
+                className="text-xs"
               >
-                <Edit3 className="h-3 w-3 mr-1" />
-                Editar
+                <Edit3 className="h-3 w-3 sm:mr-1" />
+                <span className="hidden sm:inline">Editar</span>
               </Button>
               
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => togglePostPublication(post)}
+                className="text-xs"
               >
                 {post.published ? (
                   <>
-                    <EyeOff className="h-3 w-3 mr-1" />
-                    Despublicar
+                    <EyeOff className="h-3 w-3 sm:mr-1" />
+                    <span className="hidden sm:inline">Despublicar</span>
                   </>
                 ) : (
                   <>
-                    <Eye className="h-3 w-3 mr-1" />
-                    Publicar
+                    <Eye className="h-3 w-3 sm:mr-1" />
+                    <span className="hidden sm:inline">Publicar</span>
                   </>
                 )}
               </Button>
@@ -325,6 +327,7 @@ export default function ContentManager() {
                 variant="destructive"
                 size="sm"
                 onClick={() => deletePost(post.id)}
+                className="text-xs"
               >
                 <Trash2 className="h-3 w-3" />
               </Button>
@@ -337,9 +340,9 @@ export default function ContentManager() {
 
   const renderVideoCard = (video: Video) => (
     <Card key={video.id} className="hover:shadow-md transition-shadow">
-      <CardContent className="p-4">
-        <div className="flex gap-4">
-          <div className="w-24 h-16 bg-muted rounded overflow-hidden flex-shrink-0">
+      <CardContent className="p-3 sm:p-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="w-full sm:w-24 h-32 sm:h-16 bg-muted rounded overflow-hidden flex-shrink-0">
             {video.thumbnail_url ? (
               <img 
                 src={video.thumbnail_url} 
@@ -354,57 +357,59 @@ export default function ContentManager() {
           </div>
           
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-foreground mb-1 truncate">
+                <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base line-clamp-2">
                   {video.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-2 line-clamp-2">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">
                   {video.description}
                 </p>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Eye className="h-3 w-3" />
-                    {video.views_count}
+                    <span className="whitespace-nowrap">{video.views_count}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
-                    {new Date(video.created_at).toLocaleDateString('pt-BR')}
+                    <span className="whitespace-nowrap">{new Date(video.created_at).toLocaleDateString('pt-BR')}</span>
                   </div>
                 </div>
               </div>
               
-              <div className="flex flex-col gap-1">
-                <Badge variant={video.published ? "default" : "secondary"}>
+              <div className="flex flex-col gap-1 sm:mt-0 mt-2">
+                <Badge variant={video.published ? "default" : "secondary"} className="text-xs w-fit">
                   {video.published ? "Publicado" : "Rascunho"}
                 </Badge>
               </div>
             </div>
             
-            <div className="flex items-center gap-2 mt-3">
+            <div className="flex flex-wrap items-center gap-2 mt-3">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => setEditingVideo(video)}
+                className="text-xs"
               >
-                <Edit3 className="h-3 w-3 mr-1" />
-                Editar
+                <Edit3 className="h-3 w-3 sm:mr-1" />
+                <span className="hidden sm:inline">Editar</span>
               </Button>
               
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => toggleVideoPublication(video)}
+                className="text-xs"
               >
                 {video.published ? (
                   <>
-                    <EyeOff className="h-3 w-3 mr-1" />
-                    Despublicar
+                    <EyeOff className="h-3 w-3 sm:mr-1" />
+                    <span className="hidden sm:inline">Despublicar</span>
                   </>
                 ) : (
                   <>
-                    <Eye className="h-3 w-3 mr-1" />
-                    Publicar
+                    <Eye className="h-3 w-3 sm:mr-1" />
+                    <span className="hidden sm:inline">Publicar</span>
                   </>
                 )}
               </Button>
@@ -413,6 +418,7 @@ export default function ContentManager() {
                 variant="destructive"
                 size="sm"
                 onClick={() => deleteVideo(video.id)}
+                className="text-xs"
               >
                 <Trash2 className="h-3 w-3" />
               </Button>
@@ -424,15 +430,15 @@ export default function ContentManager() {
   );
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground mb-2">Meus Conteúdos</h1>
-        <p className="text-muted-foreground">
+    <div className="space-y-4 sm:space-y-6 max-w-full">
+      <div className="px-1">
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-2">Meus Conteúdos</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           Gerencie seus posts e vídeos publicados e rascunhos
         </p>
       </div>
 
-      <Tabs defaultValue="posts" className="w-full">
+      <Tabs defaultValue="posts" className="w-full overflow-hidden">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="posts">
             Posts ({posts.length})
