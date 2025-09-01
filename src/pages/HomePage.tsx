@@ -54,7 +54,7 @@ const HomePage = () => {
       </section>
 
       {/* AutoCAD Civil 3D Section - 3 columns */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-gray-50">{/* Tema claro */}
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-12 items-center">
             {/* Coluna 1: Texto */}
