@@ -11,13 +11,10 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { NavLink, useLocation } from 'react-router-dom';
-import { FileText, Video, Settings, User, BarChart3 } from 'lucide-react';
+import { FileText, Settings } from 'lucide-react';
 
 const sidebarItems = [
   { title: "Meus Conteúdos", url: "/profile", icon: FileText },
-  { title: "Rascunhos", url: "/profile/drafts", icon: FileText },
-  { title: "Vídeos", url: "/profile/videos", icon: Video },
-  { title: "Estatísticas", url: "/profile/stats", icon: BarChart3 },
   { title: "Configurações", url: "/profile/settings", icon: Settings },
 ];
 
@@ -43,21 +40,7 @@ export function ProfileSidebar() {
       side="left"
     >
       <SidebarContent className="bg-background border-r overflow-y-auto flex-1">
-        <div className="p-4 border-b">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
-              <User className="h-5 w-5 text-primary-foreground" />
-            </div>
-            {state !== "collapsed" && (
-              <div>
-                <h3 className="font-semibold text-foreground">Painel Admin</h3>
-                <p className="text-sm text-muted-foreground">Gerenciar conteúdo</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <SidebarGroup className="px-2">
+        <SidebarGroup className="px-2 pt-4">
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

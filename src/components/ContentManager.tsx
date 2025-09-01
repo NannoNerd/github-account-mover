@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import DOMPurify from 'dompurify';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -271,9 +272,10 @@ export default function ContentManager() {
                 <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">
-                  {post.excerpt}
-                </p>
+                <div 
+                  className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2"
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.excerpt) }}
+                />
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Eye className="h-3 w-3" />
@@ -362,9 +364,10 @@ export default function ContentManager() {
                 <h3 className="font-semibold text-foreground mb-1 text-sm sm:text-base line-clamp-2">
                   {video.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2">
-                  {video.description}
-                </p>
+                <div 
+                  className="text-xs sm:text-sm text-muted-foreground mb-2 line-clamp-2"
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(video.description) }}
+                />
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs text-muted-foreground">
                   <div className="flex items-center gap-1">
                     <Eye className="h-3 w-3" />
