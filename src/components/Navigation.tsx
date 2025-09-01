@@ -50,9 +50,11 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">IF</span>
-            </div>
+            <img 
+              src="/lovable-uploads/4f1ad74d-29d6-4772-beb5-c8f4a8f188c4.png" 
+              alt="Logo" 
+              className="h-8 w-8"
+            />
             <div className="flex flex-col">
               <span className="font-bold text-xl text-white leading-none">
                 IVO FERNANDES NEWS
