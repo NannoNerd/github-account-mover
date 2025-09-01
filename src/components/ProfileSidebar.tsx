@@ -35,7 +35,7 @@ export function ProfileSidebar() {
 
   return (
     <Sidebar
-      className={`${state === "collapsed" ? "w-14" : "w-64"} min-h-screen border-r`}
+      className={`${state === "collapsed" ? "w-14" : "w-64"} h-[calc(100vh-4rem)] border-r sticky top-16 z-40`}
       variant="sidebar"
       side="left"
     >
