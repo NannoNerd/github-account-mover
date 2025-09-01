@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { X, Loader2, TrendingUp } from 'lucide-react';
+import { Loader2, TrendingUp } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -58,23 +58,13 @@ const CryptoAIModal = ({ isOpen, onClose }: CryptoAIModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <div>
-            <DialogTitle className="text-xl font-bold text-yellow-600">
-              CryptoMoeda + IA
-            </DialogTitle>
-            <p className="text-sm text-muted-foreground mt-1">
-              Tire suas dúvidas sobre criptomoedas e blockchain com nosso assistente
-            </p>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleClose}
-            className="h-6 w-6 p-0"
-          >
-            <X className="h-4 w-4" />
-          </Button>
+        <DialogHeader>
+          <DialogTitle className="text-xl font-bold text-yellow-600">
+            CryptoMoeda + IA
+          </DialogTitle>
+          <p className="text-sm text-muted-foreground mt-1">
+            Tire suas dúvidas sobre criptomoedas e blockchain com nosso assistente
+          </p>
         </DialogHeader>
 
         <div className="space-y-4">

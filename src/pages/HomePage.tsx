@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import Feed from '@/components/Feed';
 import EngineeringAIModal from '@/components/EngineeringAIModal';
 import CryptoAIModal from '@/components/CryptoAIModal';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import heroBackground from '@/assets/hero-engineering-bg.jpg';
 import autocadImage from '@/assets/autocad-civil-3d.jpg';
 import supereLimitesImage from '@/assets/supere-limites.jpg';
@@ -373,6 +374,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <TestimonialsSection />
 
       {/* Engineering AI Modal */}
       <EngineeringAIModal
