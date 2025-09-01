@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import RichTextEditor from './RichTextEditor';
@@ -18,12 +19,19 @@ interface Post {
   excerpt: string;
   cover_image_url: string | null;
   published: boolean;
+  category_id?: string;
   views_count?: number;
   likes_count?: number;
   comments_count?: number;
   created_at?: string;
   updated_at?: string;
   slug?: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
 }
 
 interface PostEditorProps {
@@ -35,12 +43,32 @@ interface PostEditorProps {
 export default function PostEditor({ post, onSave, onCancel }: PostEditorProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
   
   const [title, setTitle] = useState(post.title);
   const [excerpt, setExcerpt] = useState(post.excerpt);
   const [content, setContent] = useState(post.content || '');
   const [coverImage, setCoverImage] = useState(post.cover_image_url || '');
   const [published, setPublished] = useState(post.published);
+  const [categoryId, setCategoryId] = useState(post.category_id || '');
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .order('name');
+
+      if (error) throw error;
+      setCategories(data || []);
+    } catch (error) {
+      console.error('Erro ao carregar categorias:', error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +82,7 @@ export default function PostEditor({ post, onSave, onCancel }: PostEditorProps) 
           content,
           excerpt,
           cover_image_url: coverImage || null,
+          category_id: categoryId || null,
           published,
           published_at: published ? new Date().toISOString() : null,
         })
@@ -129,6 +158,22 @@ export default function PostEditor({ post, onSave, onCancel }: PostEditorProps) 
                 rows={3}
                 required
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="category">Categoria</Label>
+              <Select value={categoryId} onValueChange={setCategoryId}>
+                <SelectTrigger className="bg-background border-input">
+                  <SelectValue placeholder="Selecione uma categoria" />
+                </SelectTrigger>
+                <SelectContent className="bg-background border-input shadow-lg z-50">
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <ImageUpload 

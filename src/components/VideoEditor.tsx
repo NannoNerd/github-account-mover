@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import ImageUpload from './ImageUpload';
@@ -18,12 +19,19 @@ interface Video {
   youtube_video_id?: string;
   thumbnail_url: string | null;
   published: boolean;
+  category_id?: string;
   views_count?: number;
   likes_count?: number;
   comments_count?: number;
   created_at?: string;
   updated_at?: string;
   slug?: string;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  slug: string;
 }
 
 interface VideoEditorProps {
@@ -35,12 +43,32 @@ interface VideoEditorProps {
 export default function VideoEditor({ video, onSave, onCancel }: VideoEditorProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
   
   const [title, setTitle] = useState(video.title);
   const [description, setDescription] = useState(video.description);
   const [youtubeUrl, setYoutubeUrl] = useState(video.youtube_url);
   const [thumbnailUrl, setThumbnailUrl] = useState(video.thumbnail_url || '');
   const [published, setPublished] = useState(video.published);
+  const [categoryId, setCategoryId] = useState(video.category_id || '');
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
+
+  const loadCategories = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .order('name');
+
+      if (error) throw error;
+      setCategories(data || []);
+    } catch (error) {
+      console.error('Erro ao carregar categorias:', error);
+    }
+  };
 
   const extractYouTubeVideoId = (url: string) => {
     const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
@@ -66,6 +94,7 @@ export default function VideoEditor({ video, onSave, onCancel }: VideoEditorProp
           youtube_url: youtubeUrl,
           youtube_video_id: youtubeVideoId,
           thumbnail_url: thumbnailUrl || `https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`,
+          category_id: categoryId || null,
           published,
           published_at: published ? new Date().toISOString() : null,
         })
@@ -156,6 +185,22 @@ export default function VideoEditor({ video, onSave, onCancel }: VideoEditorProp
               <p className="text-sm text-muted-foreground">
                 Cole o link do YouTube
               </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="category">Categoria</Label>
+              <Select value={categoryId} onValueChange={setCategoryId}>
+                <SelectTrigger className="bg-background border-input">
+                  <SelectValue placeholder="Selecione uma categoria" />
+                </SelectTrigger>
+                <SelectContent className="bg-background border-input shadow-lg z-50">
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
             <ImageUpload 
