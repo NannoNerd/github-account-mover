@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -176,9 +177,11 @@ export default function Noticias() {
                         {post.views_count.toLocaleString()}
                       </div>
                     </div>
-                    <Button className="w-full md:w-auto">
-                      Ler Artigo Completo
-                    </Button>
+                    <Link to={`/post/${post.slug}`}>
+                      <Button className="w-full md:w-auto">
+                        Ler Artigo Completo
+                      </Button>
+                    </Link>
                     </div>
                   </div>
                 </Card>
@@ -218,9 +221,11 @@ export default function Noticias() {
                         {post.views_count.toLocaleString()}
                       </div>
                       </div>
+                    <Link to={`/post/${post.slug}`}>
                       <Button variant="outline" size="sm" className="w-full">
                         Ler Mais
                       </Button>
+                    </Link>
                     </CardContent>
                   </Card>
                 ))}
@@ -272,10 +277,12 @@ export default function Noticias() {
                         {video.views_count.toLocaleString()}
                       </div>
                       </div>
+                    <Link to={`/video/${video.slug}`}>
                       <Button className="w-full md:w-auto">
                         <Play className="h-4 w-4 mr-2" />
                         Assistir Vídeo
                       </Button>
+                    </Link>
                     </div>
                   </div>
                 </Card>
@@ -323,10 +330,12 @@ export default function Noticias() {
                         {video.views_count.toLocaleString()}
                       </div>
                       </div>
+                    <Link to={`/video/${video.slug}`}>
                       <Button variant="outline" size="sm" className="w-full">
                         <Play className="h-3 w-3 mr-2" />
                         Assistir
                       </Button>
+                    </Link>
                     </CardContent>
                   </Card>
                 ))}
