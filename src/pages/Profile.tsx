@@ -1,10 +1,13 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ProfileSidebar } from '@/components/ProfileSidebar';
+import ContentManager from '@/components/ContentManager';
 
 export default function Profile() {
   const { user, loading } = useAuth();
 
+  // Redirect if not authenticated
   if (!loading && !user) {
     return <Navigate to="/auth" replace />;
   }
@@ -14,24 +17,27 @@ export default function Profile() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto py-8">
-      <Card>
-        <CardHeader>
-          <CardTitle>Meu Perfil</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium">Email</label>
-              <p className="text-muted-foreground">{user?.email}</p>
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full bg-background">
+        {/* Sidebar */}
+        <ProfileSidebar />
+        
+        {/* Main content */}
+        <div className="flex-1 flex flex-col">
+          {/* Header com trigger do sidebar */}
+          <header className="h-14 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
+            <SidebarTrigger />
+            <div className="ml-4">
+              <h2 className="text-lg font-semibold text-foreground">Painel Administrativo</h2>
             </div>
-            <div>
-              <label className="text-sm font-medium">Nome</label>
-              <p className="text-muted-foreground">{user?.user_metadata?.display_name || 'Não informado'}</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </header>
+          
+          {/* Content area */}
+          <main className="flex-1 p-6 overflow-auto">
+            <ContentManager />
+          </main>
+        </div>
+      </div>
+    </SidebarProvider>
   );
 }
