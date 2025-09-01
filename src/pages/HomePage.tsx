@@ -56,18 +56,17 @@ const HomePage = () => {
       {/* AutoCAD Civil 3D Section */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-blue-600">
                 Aulas de Autocad Civil 3D
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Desenvolva suas habilidades em modelagem, projetos de infraestrutura e análise de terrenos com nossas aulas especializadas de Autocad Civil 3D.
               </p>
-              <Button asChild size="lg" className="mb-8">
+              <Button asChild variant="outline" size="lg" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
                 <Link to="/?category=engenharia">
                   Saiba Mais
-                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -75,35 +74,28 @@ const HomePage = () => {
               <img 
                 src={autocadImage} 
                 alt="Autocad Civil 3D" 
-                className="rounded-lg shadow-2xl w-full h-auto"
+                className="rounded-lg shadow-2xl w-full h-auto max-w-md mx-auto"
               />
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Engineering Tools Section */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="text-center md:text-left order-2 md:order-1">
-              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto md:mx-0 mb-6">
+          {/* Engineering Tools Section */}
+          <div className="grid md:grid-cols-2 gap-16 items-start mt-20">
+            <div></div> {/* Empty space to align with right column */}
+            <div className="text-center">
+              <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Cog className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold mb-4">Engenharia e Designer</h3>
+              <h3 className="text-2xl font-bold mb-4 text-gray-800">Engenharia e Designer</h3>
               <p className="text-muted-foreground mb-6">
                 Gere scripts e comandos para softwares de engenharia usando IA.
               </p>
-              <div className="space-y-4">
-                <div className="bg-cyan-500 text-white px-4 py-2 rounded-lg inline-block">
-                  <Button variant="ghost" className="text-white hover:bg-cyan-600">
-                    Geração de Comandos por IA
-                  </Button>
-                </div>
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <p>Manuais e Tutoriais (Em Breve...)</p>
-                  <p>Projetos de Engenharia Civil (Em Breve...)</p>
-                </div>
+              <Button className="bg-cyan-500 hover:bg-cyan-600 text-white mb-4 w-full max-w-xs">
+                Geração de Comandos por IA
+              </Button>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>Manuais e Tutoriais (Em Breve...)</p>
+                <p>Projetos de Engenharia Civil (Em Breve...)</p>
               </div>
             </div>
           </div>
