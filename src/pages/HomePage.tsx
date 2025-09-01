@@ -3,8 +3,10 @@ import { useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, Cog, BookOpen, TrendingUp, Lightbulb, Play, Users, Target, Brain } from 'lucide-react';
+import { ArrowRight, Cog, BookOpen, TrendingUp, Lightbulb, Play, Users, Target, Brain, Loader2, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 import Feed from '@/components/Feed';
 import EngineeringAIModal from '@/components/EngineeringAIModal';
 import heroBackground from '@/assets/hero-engineering-bg.jpg';
@@ -18,6 +20,8 @@ const HomePage = () => {
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
   const [isAIModalOpen, setIsAIModalOpen] = useState(false);
+  const [motivationalMessage, setMotivationalMessage] = useState('');
+  const [isGeneratingMessage, setIsGeneratingMessage] = useState(false);
 
   // Se há uma categoria, mostrar o Feed em vez da homepage
   if (category) {
@@ -27,6 +31,28 @@ const HomePage = () => {
       </main>
     );
   }
+
+  const generateMotivationalMessage = async () => {
+    setIsGeneratingMessage(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('motivational-message');
+      
+      if (error) {
+        console.error('Error generating motivational message:', error);
+        toast.error('Erro ao gerar mensagem. Tente novamente.');
+        return;
+      }
+
+      if (data?.message) {
+        setMotivationalMessage(data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Erro ao conectar com o gerador de mensagens');
+    } finally {
+      setIsGeneratingMessage(false);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -107,23 +133,47 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Motivational Videos Section */}
-      <section className="py-20 bg-white">
+      {/* Motivational Videos Section - Dark Theme */}
+      <section className="py-20 bg-slate-800 text-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-blue-600">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-cyan-400">
               Vídeos Motivacionais
             </h2>
-            <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-300 mb-8 max-w-3xl mx-auto">
               Encontre inspiração para superar desafios e conquistar seus objetivos com conteúdos motivacionais cuidadosamente selecionados.
             </p>
-            <Button className="bg-green-500 hover:bg-green-600 text-white mb-12">
-              Gerar Mensagem Positiva
+            <Button 
+              className="bg-purple-600 hover:bg-purple-700 text-white mb-8 px-8 py-3"
+              onClick={generateMotivationalMessage}
+              disabled={isGeneratingMessage}
+            >
+              {isGeneratingMessage ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Gerando...
+                </>
+              ) : (
+                <>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Gerar Mensagem Positiva
+                </>
+              )}
             </Button>
+
+            {motivationalMessage && (
+              <div className="max-w-2xl mx-auto mb-12">
+                <div className="bg-slate-700/50 border border-slate-600 rounded-lg p-6">
+                  <p className="text-cyan-300 text-lg italic font-medium">
+                    "{motivationalMessage}"
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="group hover:shadow-xl transition-all duration-300">
+            <Card className="bg-slate-700 border-slate-600 text-white group hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
                   src={supereLimitesImage} 
@@ -133,17 +183,17 @@ const HomePage = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Target className="h-5 w-5 mr-2 text-blue-600" />
+                <CardTitle className="flex items-center text-white">
+                  <Target className="h-5 w-5 mr-2 text-cyan-400" />
                   Supere seus limites
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-300">
                   Histórias inspiradoras de resiliência e determinação.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300">
+            <Card className="bg-slate-700 border-slate-600 text-white group hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
                   src={mentalidadeVencedoraImage} 
@@ -153,17 +203,17 @@ const HomePage = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Brain className="h-5 w-5 mr-2 text-green-600" />
+                <CardTitle className="flex items-center text-white">
+                  <Brain className="h-5 w-5 mr-2 text-yellow-400" />
                   Mentalidade vencedora
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-300">
                   Aprenda a cultivar pensamentos positivos diariamente.
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="group hover:shadow-xl transition-all duration-300">
+            <Card className="bg-slate-700 border-slate-600 text-white group hover:shadow-xl hover:shadow-purple-500/20 transition-all duration-300">
               <div className="relative overflow-hidden rounded-t-lg">
                 <img 
                   src={focoDisciplinaImage} 
@@ -173,11 +223,11 @@ const HomePage = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
               </div>
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Lightbulb className="h-5 w-5 mr-2 text-yellow-600" />
+                <CardTitle className="flex items-center text-white">
+                  <Lightbulb className="h-5 w-5 mr-2 text-green-400" />
                   Foco e disciplina
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-300">
                   Descubra como manter a consistência para alcançar seus sonhos.
                 </CardDescription>
               </CardHeader>
