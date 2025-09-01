@@ -132,10 +132,6 @@ export default function Engineering() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <Textarea
-                    placeholder="Ex: 'Gerar um script Python para automatizar a criação de camadas no AutoCAD', 'Comando para criar uma parede de 20cm no Revit', 'Instrução para modelar uma viga em concreto armado no SAP2000'"
-                    className="min-h-[120px] resize-none bg-background/50 border-border/50"
-                  />
                   <div className="flex flex-wrap gap-2 mb-4">
                     <Badge variant="secondary" className="text-xs">AutoCAD</Badge>
                     <Badge variant="secondary" className="text-xs">Civil 3D</Badge>
