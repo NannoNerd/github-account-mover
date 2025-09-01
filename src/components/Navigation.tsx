@@ -1,140 +1,194 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useAuth } from "@/hooks/useAuth";
-import { Menu, X, Plus, LogOut, User, Search } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useState } from 'react';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from '@/components/ui/dropdown-menu';
+import { 
+  Sheet, 
+  SheetContent, 
+  SheetTrigger 
+} from '@/components/ui/sheet';
+import { 
+  Menu, 
+  User, 
+  Plus, 
+  LogOut
+} from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 const Navigation = () => {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const currentCategory = searchParams.get('category') || '';
   const { user, signOut } = useAuth();
-  const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSignOut = async () => {
-    await signOut();
+    try {
+      await signOut();
+      navigate('/auth');
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+    }
   };
 
-  const categories = [
-    { name: 'Engenharia', slug: 'engenharia' },
-    { name: 'Criptomoedas', slug: 'crypto' },
-    { name: 'Música', slug: 'music' },
-    { name: 'Motivacional', slug: 'motivational' }
+  const navLinks = [
+    { name: 'Engenharia', slug: 'engenharia', href: '/?category=engenharia' },
+    { name: 'Notícias', slug: 'noticias', href: '/noticias' },
+    { name: 'Crypto', slug: 'crypto', href: '/?category=crypto' },
+    { name: 'Música', slug: 'music', href: '/?category=music' },
+    { name: 'Motivacional', slug: 'motivational', href: '/?category=motivational' }
   ];
 
   return (
-    <nav className="bg-card border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="sticky top-0 z-50 w-full bg-slate-800 border-b border-slate-700">
+      <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-3">
             <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">IF</span>
             </div>
-            <span className="font-bold text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Ivo Fernandes News
-            </span>
+            <div className="flex flex-col">
+              <span className="font-bold text-xl text-white leading-none">
+                IVO FERNANDES NEWS
+              </span>
+              <span className="text-xs text-gray-400 leading-none">
+                Engenharia • IA • Motivação • Crypto • Música
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop Menu */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {categories.map((category) => (
+            {navLinks.map((link) => (
               <Link
-                key={category.slug}
-                to={category.slug === 'engenharia' ? '/?category=engenharia' : `/${category.slug}`}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === `/${category.slug}` || 
-                  (location.pathname === '/' && category.slug === 'engenharia')
-                    ? 'text-primary' 
-                    : 'text-muted-foreground'
+                key={link.slug}
+                to={link.href}
+                className={`text-sm font-medium transition-colors relative ${
+                  currentCategory === link.slug 
+                    ? 'text-white after:absolute after:bottom-[-8px] after:left-0 after:right-0 after:h-0.5 after:bg-primary' 
+                    : 'text-gray-300 hover:text-white'
                 }`}
               >
-                {category.name}
+                {link.name}
               </Link>
             ))}
           </div>
 
-          {/* Search */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Buscar..."
-                className="pl-10 w-64"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {/* User Actions */}
-          <div className="flex items-center space-x-4">
+          {/* User Menu */}
+          <div className="flex items-center space-x-3">
             {user ? (
-              <div className="flex items-center space-x-2">
-                <Button asChild size="sm" variant="ghost">
+              <>
+                <Button asChild variant="outline" size="sm" className="hidden md:flex bg-transparent border-primary text-primary hover:bg-primary hover:text-white">
                   <Link to="/create">
                     <Plus className="h-4 w-4 mr-2" />
                     Criar
                   </Link>
                 </Button>
+                
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" className="relative h-8 w-8 rounded-full text-white hover:bg-slate-700">
                       <User className="h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
+                  <DropdownMenuContent className="w-56" align="end" forceMount>
                     <DropdownMenuItem asChild>
-                      <Link to="/profile">Perfil</Link>
+                      <Link to="/profile" className="flex items-center">
+                        <User className="mr-2 h-4 w-4" />
+                        Perfil
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/create" className="flex items-center md:hidden">
+                        <Plus className="mr-2 h-4 w-4" />
+                        Criar Conteúdo
+                      </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleSignOut}>
-                      <LogOut className="h-4 w-4 mr-2" />
+                      <LogOut className="mr-2 h-4 w-4" />
                       Sair
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </div>
+              </>
             ) : (
-              <Button asChild size="sm">
-                <Link to="/auth">Entrar</Link>
-              </Button>
+              <div className="flex items-center space-x-3">
+                <Button asChild variant="ghost" size="sm" className="text-white hover:bg-slate-700">
+                  <Link to="/auth">Entrar</Link>
+                </Button>
+                <Button asChild size="sm" className="bg-primary hover:bg-primary/90 text-white">
+                  <Link to="/auth">Cadastrar</Link>
+                </Button>
+              </div>
             )}
 
-            {/* Mobile menu button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+            {/* Mobile Menu */}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="sm" className="md:hidden text-white hover:bg-slate-700">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80">
+                <div className="flex flex-col space-y-4 mt-6">
+                  <div className="flex flex-col space-y-2">
+                    <h3 className="font-medium text-sm text-muted-foreground mb-2">Categorias</h3>
+                    {navLinks.map((link) => (
+                      <Link
+                        key={link.slug}
+                        to={link.href}
+                        className={`px-4 py-2 rounded-md transition-colors ${
+                          currentCategory === link.slug 
+                            ? 'bg-primary text-primary-foreground' 
+                            : 'hover:bg-accent hover:text-accent-foreground'
+                        }`}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </div>
+                  
+                  {user && (
+                    <div className="pt-4 border-t">
+                      <div className="flex flex-col space-y-2">
+                        <Button asChild variant="outline" className="justify-start">
+                          <Link to="/create" onClick={() => setIsOpen(false)}>
+                            <Plus className="h-4 w-4 mr-2" />
+                            Criar Conteúdo
+                          </Link>
+                        </Button>
+                        <Button asChild variant="outline" className="justify-start">
+                          <Link to="/profile" onClick={() => setIsOpen(false)}>
+                            <User className="h-4 w-4 mr-2" />
+                            Perfil
+                          </Link>
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="justify-start" 
+                          onClick={() => {
+                            handleSignOut();
+                            setIsOpen(false);
+                          }}
+                        >
+                          <LogOut className="h-4 w-4 mr-2" />
+                          Sair
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 space-y-2">
-            {categories.map((category) => (
-              <Link
-                key={category.slug}
-                to={category.slug === 'engenharia' ? '/?category=engenharia' : `/${category.slug}`}
-                className="block px-2 py-1 text-sm font-medium text-muted-foreground hover:text-primary"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {category.name}
-              </Link>
-            ))}
-            <div className="pt-2">
-              <Input
-                placeholder="Buscar..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );

@@ -32,23 +32,22 @@ const HomePage = () => {
       <section 
         className="relative min-h-[80vh] flex items-center justify-center text-white"
         style={{
-          backgroundImage: `linear-gradient(rgba(37, 99, 235, 0.8), rgba(67, 56, 202, 0.8)), url(${heroBackground})`,
+          backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.8), rgba(51, 65, 85, 0.8)), url(${heroBackground})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed'
         }}
       >
         <div className="container mx-auto px-6 text-center relative z-10">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-blue-500 bg-clip-text text-transparent">
             Conhecimento, Inspiração e Inovação
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto">
+          <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-4xl mx-auto">
             Aprenda Autocad Civil 3D, inspire-se com vídeos motivacionais e fique por dentro do universo das criptomoedas.
           </p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg">
+          <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg rounded-lg">
             <Link to="/?category=engenharia" className="flex items-center">
               Explorar Agora
-              <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
         </div>
