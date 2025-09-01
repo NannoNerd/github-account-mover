@@ -28,8 +28,13 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="text-xl font-bold text-primary">
-            SiteVideosNews
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="h-8 w-8 rounded bg-primary flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-sm">IF</span>
+            </div>
+            <span className="font-bold text-xl bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              Ivo Fernandes News
+            </span>
           </Link>
 
           {/* Desktop Menu */}
