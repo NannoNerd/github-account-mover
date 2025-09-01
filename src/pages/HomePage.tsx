@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight, Cog, BookOpen, TrendingUp, Lightbulb, Play, Users, Target, Brain } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Feed from '@/components/Feed';
+import EngineeringAIModal from '@/components/EngineeringAIModal';
 import heroBackground from '@/assets/hero-engineering-bg.jpg';
 import autocadImage from '@/assets/autocad-civil-3d.jpg';
 import supereLimitesImage from '@/assets/supere-limites.jpg';
@@ -16,6 +17,7 @@ import criptosImage from '@/assets/criptos.jpg';
 const HomePage = () => {
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
+  const [isAIModalOpen, setIsAIModalOpen] = useState(false);
 
   // Se há uma categoria, mostrar o Feed em vez da homepage
   if (category) {
@@ -90,7 +92,10 @@ const HomePage = () => {
               <p className="text-muted-foreground mb-6">
                 Gere scripts e comandos para softwares de engenharia usando IA.
               </p>
-              <Button className="bg-cyan-500 hover:bg-cyan-600 text-white mb-4 w-full max-w-xs">
+              <Button 
+                className="bg-cyan-500 hover:bg-cyan-600 text-white mb-4 w-full max-w-xs"
+                onClick={() => setIsAIModalOpen(true)}
+              >
                 Geração de Comandos por IA
               </Button>
               <div className="space-y-2 text-sm text-muted-foreground">
@@ -293,6 +298,12 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Engineering AI Modal */}
+      <EngineeringAIModal
+        isOpen={isAIModalOpen}
+        onClose={() => setIsAIModalOpen(false)}
+      />
     </div>
   );
 };
