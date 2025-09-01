@@ -35,12 +35,12 @@ export function ProfileSidebar() {
 
   return (
     <Sidebar
-      className={`${state === "collapsed" ? "w-14" : "w-64"} h-full border-r flex flex-col relative z-0`}
+      className={`${state === "collapsed" ? "w-14" : "w-64"} min-h-screen border-r`}
       variant="sidebar"
       side="left"
     >
-      <SidebarContent className="bg-background border-r overflow-y-auto flex-1">
-        <SidebarGroup className="px-2 pt-4">
+      <SidebarContent className="bg-background border-r">
+        <SidebarGroup className="px-2 py-4">
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

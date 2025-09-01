@@ -17,32 +17,27 @@ export default function Profile() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
-      {/* Layout principal sem footer */}
-      <div className="flex-1 flex overflow-hidden">
-        <SidebarProvider>
-          {/* Sidebar fixo na esquerda */}
-          <div className="relative z-10">
-            <ProfileSidebar />
-          </div>
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full bg-background">
+        {/* Sidebar fixo na esquerda, começando do topo */}
+        <ProfileSidebar />
+        
+        {/* Main content */}
+        <div className="flex-1 flex flex-col min-w-0">
+          {/* Header com trigger do sidebar */}
+          <header className="h-14 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 flex-shrink-0">
+            <SidebarTrigger />
+            <div className="ml-4">
+              <h2 className="text-lg font-semibold text-foreground truncate">Painel Administrativo</h2>
+            </div>
+          </header>
           
-          {/* Main content */}
-          <div className="flex-1 flex flex-col min-w-0">
-            {/* Header com trigger do sidebar */}
-            <header className="h-14 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 flex-shrink-0 relative z-20">
-              <SidebarTrigger />
-              <div className="ml-4">
-                <h2 className="text-lg font-semibold text-foreground truncate">Painel Administrativo</h2>
-              </div>
-            </header>
-            
-            {/* Content area */}
-            <main className="flex-1 p-4 lg:p-6 overflow-auto">
-              <ContentManager />
-            </main>
-          </div>
-        </SidebarProvider>
+          {/* Content area */}
+          <main className="flex-1 p-4 lg:p-6 overflow-auto">
+            <ContentManager />
+          </main>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }
