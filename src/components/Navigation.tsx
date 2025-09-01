@@ -101,7 +101,7 @@ const Navigation = () => {
                     <DropdownMenuItem asChild>
                       <Link to="/profile" className="flex items-center">
                         <User className="mr-2 h-4 w-4" />
-                        Perfil
+                        Painel Admin
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
@@ -167,7 +167,7 @@ const Navigation = () => {
                         <Button asChild variant="outline" className="justify-start">
                           <Link to="/profile" onClick={() => setIsOpen(false)}>
                             <User className="h-4 w-4 mr-2" />
-                            Perfil
+                            Painel Admin
                           </Link>
                         </Button>
                         <Button 
