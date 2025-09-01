@@ -38,11 +38,11 @@ export function ProfileSidebar() {
 
   return (
     <Sidebar
-      className={`${state === "collapsed" ? "w-14" : "w-64"} h-screen border-r`}
+      className={`${state === "collapsed" ? "w-14" : "w-64"} h-full border-r flex flex-col`}
       variant="sidebar"
       side="left"
     >
-      <SidebarContent className="bg-background border-r overflow-y-auto">
+      <SidebarContent className="bg-background border-r overflow-y-auto flex-1">
         <div className="p-4 border-b">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
