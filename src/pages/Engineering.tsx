@@ -52,9 +52,9 @@ export default function Engineering() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section - Full Width */}
-      <section className="relative py-20 px-4 text-center bg-gradient-to-br from-background via-background/95 to-primary/5 w-full">
+      <section className="relative py-20 text-center bg-gradient-to-br from-background via-background/95 to-primary/5 w-screen -mx-[50vw] left-1/2 px-4">
         <div 
-          className="absolute inset-0 opacity-10 bg-cover bg-center"
+          className="absolute inset-0 opacity-10 bg-cover bg-center w-full h-full"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
         <div className="relative z-10 w-full max-w-4xl mx-auto">
