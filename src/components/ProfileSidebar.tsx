@@ -38,7 +38,7 @@ export function ProfileSidebar() {
 
   return (
     <Sidebar
-      className={`${state === "collapsed" ? "w-14" : "w-64"} h-full border-r flex flex-col`}
+      className={`${state === "collapsed" ? "w-14" : "w-64"} h-full border-r flex flex-col relative z-0`}
       variant="sidebar"
       side="left"
     >

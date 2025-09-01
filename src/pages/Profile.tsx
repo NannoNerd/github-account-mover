@@ -19,15 +19,17 @@ export default function Profile() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       {/* Layout principal sem footer */}
-      <div className="flex-1 flex">
+      <div className="flex-1 flex overflow-hidden">
         <SidebarProvider>
           {/* Sidebar fixo na esquerda */}
-          <ProfileSidebar />
+          <div className="relative z-10">
+            <ProfileSidebar />
+          </div>
           
           {/* Main content */}
           <div className="flex-1 flex flex-col min-w-0">
             {/* Header com trigger do sidebar */}
-            <header className="h-14 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 flex-shrink-0">
+            <header className="h-14 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 flex-shrink-0 relative z-20">
               <SidebarTrigger />
               <div className="ml-4">
                 <h2 className="text-lg font-semibold text-foreground truncate">Painel Administrativo</h2>
