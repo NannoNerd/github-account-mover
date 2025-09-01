@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import Auth from "./pages/Auth";
 import CreateContent from "./pages/CreateContent";
@@ -16,6 +17,9 @@ import ComingSoonCrypto from "./pages/ComingSoonCrypto";
 import ComingSoonMusic from "./pages/ComingSoonMusic";
 import ComingSoonMotivational from "./pages/ComingSoonMotivational";
 import Engineering from "./pages/Engineering";
+import AutoCADCivil3D from "./pages/AutoCADCivil3D";
+import Motivacional from "./pages/Motivacional";
+import Criptomoedas from "./pages/Criptomoedas";
 
 const queryClient = new QueryClient();
 
@@ -102,6 +106,30 @@ const App = () => (
                   </main>
                 } 
               />
+              <Route 
+                path="/autocad-civil-3d" 
+                element={
+                  <main className="container mx-auto max-w-7xl px-4">
+                    <AutoCADCivil3D />
+                  </main>
+                } 
+              />
+              <Route 
+                path="/motivacional" 
+                element={
+                  <main className="container mx-auto max-w-7xl px-4">
+                    <Motivacional />
+                  </main>
+                } 
+              />
+              <Route 
+                path="/criptomoedas" 
+                element={
+                  <main className="container mx-auto max-w-7xl px-4">
+                    <Criptomoedas />
+                  </main>
+                } 
+              />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route 
                 path="*" 
@@ -112,6 +140,7 @@ const App = () => (
                 } 
               />
             </Routes>
+            <Footer />
           </div>
         </BrowserRouter>
       </TooltipProvider>
