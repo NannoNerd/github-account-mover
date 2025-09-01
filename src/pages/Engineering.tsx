@@ -154,8 +154,8 @@ export default function Engineering() {
         </div>
       </section>
 
-      {/* Latest Engineering Video Section - Dark Theme */}
-      <section className="py-16 px-4 bg-slate-900">
+      {/* Latest Engineering Video Section - Dark Theme - Full Width */}
+      <section className="py-16 bg-slate-900 w-screen -mx-[50vw] left-1/2 px-4">
         <div className="w-full max-w-none mx-auto lg:max-w-[70%]">
           <h2 className="text-3xl font-bold text-center text-white mb-8">
             Último Vídeo de Engenharia
