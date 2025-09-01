@@ -56,7 +56,7 @@ const HomePage = () => {
       </section>
 
       {/* AutoCAD Civil 3D Section - 3 columns */}
-      <section className="py-20 bg-gray-50">{/* Tema claro */}
+      <section className="py-20 bg-white">{/* Tema explicitamente branco */}
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-12 items-center">
             {/* Coluna 1: Texto */}
@@ -108,7 +108,7 @@ const HomePage = () => {
       </section>
 
       {/* Motivational Videos Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-blue-600">
@@ -187,7 +187,7 @@ const HomePage = () => {
       </section>
 
       {/* Cryptocurrency Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative">
@@ -216,7 +216,7 @@ const HomePage = () => {
       </section>
 
       {/* Categories Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
