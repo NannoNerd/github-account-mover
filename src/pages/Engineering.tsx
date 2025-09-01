@@ -155,7 +155,6 @@ export default function Engineering() {
       </section>
 
       {/* Latest Engineering Video Section - Dark Theme */}
-      {/* Latest Engineering Video Section - Dark Theme */}
       <section className="relative py-16 text-center bg-slate-900 w-screen -mx-[50vw] left-1/2 px-4">
         <div className="relative z-10 w-full max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-white mb-8">
@@ -195,43 +194,47 @@ export default function Engineering() {
                 title: "Sistema de Drenagem Urbana",
                 description: "Projeto completo de sistema de drenagem para área urbana com dimensionamento hidráulico.",
                 category: "Hidráulica",
-                image: "/placeholder.svg"
+                image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Análise de Estabilidade de Taludes",
                 description: "Estudo geotécnico para análise de estabilidade em encostas com diferentes métodos.",
                 category: "Geotecnia",
-                image: "/placeholder.svg"
+                image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Dimensionamento de Pavimento",
                 description: "Projeto de pavimentação rodoviária com análise de tráfego e dimensionamento estrutural.",
                 category: "Pavimentação",
-                image: "/placeholder.svg"
+                image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Estrutura de Concreto Armado",
                 description: "Projeto estrutural completo de edifício residencial com cálculos e detalhamentos.",
                 category: "Estrutural",
-                image: "/placeholder.svg"
+                image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Rede de Distribuição de Água",
                 description: "Sistema de abastecimento de água com dimensionamento de tubulações e reservatórios.",
                 category: "Hidráulica",
-                image: "/placeholder.svg"
+                image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Terraplanagem e Movimento de Terra",
                 description: "Projeto de terraplanagem com cálculo de volumes e otimização de corte e aterro.",
                 category: "Topografia",
-                image: "/placeholder.svg"
+                image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=300&fit=crop&crop=center"
               }
             ].map((project, index) => (
               <Card key={index} className="hover:shadow-lg transition-all duration-300 hover-scale bg-card border-border">
                 <CardContent className="p-0">
-                  <div className="aspect-video bg-muted rounded-t-lg flex items-center justify-center mb-4">
-                    <span className="text-muted-foreground text-sm">Imagem do Projeto</span>
+                  <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-3">
