@@ -218,7 +218,7 @@ export default function Engineering() {
                 title: "Rede de Distribuição de Água",
                 description: "Sistema de abastecimento de água com dimensionamento de tubulações e reservatórios.",
                 category: "Hidráulica",
-                image: "https://images.unsplash.com/photo-1581092160562-40aa4082da6d?w=400&h=300&fit=crop&crop=center"
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Terraplanagem e Movimento de Terra",
