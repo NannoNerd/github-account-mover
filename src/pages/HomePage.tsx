@@ -53,12 +53,13 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* AutoCAD Civil 3D Section */}
+      {/* AutoCAD Civil 3D Section - 3 columns */}
       <section className="py-20 bg-background">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-3 gap-12 items-center">
+            {/* Coluna 1: Texto */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-blue-600">
+              <h2 className="text-4xl font-bold mb-6 text-blue-600">
                 Aulas de Autocad Civil 3D
               </h2>
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
@@ -70,18 +71,17 @@ const HomePage = () => {
                 </Link>
               </Button>
             </div>
-            <div className="relative">
+            
+            {/* Coluna 2: Imagem */}
+            <div className="flex justify-center">
               <img 
                 src={autocadImage} 
                 alt="Autocad Civil 3D" 
-                className="rounded-lg shadow-2xl w-full h-auto max-w-md mx-auto"
+                className="rounded-lg shadow-2xl w-full h-auto max-w-sm"
               />
             </div>
-          </div>
-
-          {/* Engineering Tools Section */}
-          <div className="grid md:grid-cols-2 gap-16 items-start mt-20">
-            <div></div> {/* Empty space to align with right column */}
+            
+            {/* Coluna 3: Engenharia e Designer */}
             <div className="text-center">
               <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Cog className="h-8 w-8 text-white" />
