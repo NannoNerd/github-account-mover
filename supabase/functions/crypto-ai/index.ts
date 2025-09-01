@@ -15,7 +15,9 @@ serve(async (req) => {
   }
 
   try {
-    console.log('Generating motivational message');
+    const { prompt } = await req.json();
+
+    console.log('Generating crypto response for:', prompt);
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -28,26 +30,24 @@ serve(async (req) => {
         messages: [
           { 
             role: 'system', 
-            content: `Você é um especialista em motivação e desenvolvimento pessoal. Gere uma mensagem motivacional curta, inspiradora e impactante em português.
+            content: `Você é um especialista em criptomoedas, blockchain, DeFi (Finanças Descentralizadas), trading e investimentos digitais.
 
-A mensagem deve:
-- Ter entre 10 a 25 palavras
-- Ser positiva e inspiradora
-- Usar linguagem poética e impactante
-- Focuar em superação, determinação, sucesso ou crescimento pessoal
-- Ser única e original
+Forneça respostas técnicas e educativas sobre:
+- Bitcoin, Ethereum e outras criptomoedas
+- Tecnologia blockchain e como funciona
+- Análises de mercado e tendências
+- DeFi, NFTs, staking, yield farming
+- Estratégias de investimento e trading
+- Segurança em crypto (wallets, chaves privadas)
+- Regulamentações e aspectos legais
+- Projetos emergentes e inovações
 
-Exemplos do estilo desejado:
-"O sucesso floresce na alma que insiste, mesmo quando o vento sopra ao contrário."
-"Cada desafio é uma oportunidade disfarçada esperando para ser descoberta."
-"A coragem não é a ausência do medo, mas a decisão de seguir em frente apesar dele."
-
-Gere apenas a mensagem, sem aspas ou explicações adicionais.`
+Seja sempre educativo, imparcial e baseado em fatos. Inclua avisos sobre riscos quando apropriado. Evite dar conselhos financeiros específicos.`
           },
-          { role: 'user', content: 'Gere uma mensagem motivacional inspiradora.' }
+          { role: 'user', content: prompt }
         ],
-        max_tokens: 100,
-        temperature: 0.8,
+        max_tokens: 2000,
+        temperature: 0.7,
       }),
     });
 
@@ -58,15 +58,15 @@ Gere apenas a mensagem, sem aspas ou explicações adicionais.`
     }
 
     const data = await response.json();
-    const motivationalMessage = data.choices[0].message.content.trim().replace(/^["'"'"'"'"'"'"'"""]|["'"'"'"'"'"'"'"""]$/g, '');
+    const generatedResponse = data.choices[0].message.content;
 
-    console.log('Generated motivational message successfully');
+    console.log('Generated crypto response successfully');
 
-    return new Response(JSON.stringify({ message: motivationalMessage }), {
+    return new Response(JSON.stringify({ response: generatedResponse }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error in motivational-message function:', error);
+    console.error('Error in crypto-ai function:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

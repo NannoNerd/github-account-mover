@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import Feed from '@/components/Feed';
 import EngineeringAIModal from '@/components/EngineeringAIModal';
+import CryptoAIModal from '@/components/CryptoAIModal';
 import heroBackground from '@/assets/hero-engineering-bg.jpg';
 import autocadImage from '@/assets/autocad-civil-3d.jpg';
 import supereLimitesImage from '@/assets/supere-limites.jpg';
@@ -22,6 +23,7 @@ const HomePage = () => {
   const [isAIModalOpen, setIsAIModalOpen] = useState(false);
   const [motivationalMessage, setMotivationalMessage] = useState('');
   const [isGeneratingMessage, setIsGeneratingMessage] = useState(false);
+  const [isCryptoAIModalOpen, setIsCryptoAIModalOpen] = useState(false);
 
   // Se há uma categoria, mostrar o Feed em vez da homepage
   if (category) {
@@ -236,30 +238,53 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Cryptocurrency Section */}
+      {/* Cryptocurrency Section - 3 columns */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative">
+          <div className="grid md:grid-cols-3 gap-12 items-center">
+            {/* Coluna 1: Imagem */}
+            <div className="flex justify-center">
               <img 
                 src={criptosImage} 
                 alt="Criptomoedas" 
-                className="rounded-lg shadow-2xl w-full h-auto"
+                className="rounded-lg shadow-2xl w-full h-auto max-w-sm"
               />
             </div>
+            
+            {/* Coluna 2: Texto e botão */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-yellow-600">
+              <h2 className="text-4xl font-bold mb-6 text-pink-600">
                 Mundo das Criptomoedas
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Explore o fascinante universo das moedas digitais, blockchain e tecnologias descentralizadas. Aprenda sobre investimentos e tendências do mercado cripto.
+              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                Explore análises, tendências e oportunidades no mercado de criptomoedas. Informação confiável e atualizada para quem deseja investir com segurança.
               </p>
-              <Button asChild size="lg" className="bg-yellow-600 hover:bg-yellow-700">
+              <Button asChild variant="outline" size="lg" className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white">
                 <Link to="/?category=crypto">
-                  Explorar Crypto
-                  <TrendingUp className="ml-2 h-4 w-4" />
+                  Ver Conteúdos
                 </Link>
               </Button>
+            </div>
+            
+            {/* Coluna 3: Card CryptoMoeda + IA */}
+            <div className="text-center border border-gray-300 rounded-lg p-6">
+              <div className="bg-pink-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                <TrendingUp className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-800">CryptoMoeda + IA</h3>
+              <p className="text-muted-foreground mb-6">
+                Tire suas dúvidas sobre criptomoedas e blockchain com nosso assistente.
+              </p>
+              <Button 
+                className="bg-pink-500 hover:bg-pink-600 text-white mb-4 w-full max-w-xs"
+                onClick={() => setIsCryptoAIModalOpen(true)}
+              >
+                Crypto IA / Pergunte
+              </Button>
+              <div className="space-y-2 text-sm text-muted-foreground">
+                <p>Análise de Gráficos (Em Breve...)</p>
+                <p>Notícias e Atualizações (Em Breve...)</p>
+              </div>
             </div>
           </div>
         </div>
@@ -353,6 +378,12 @@ const HomePage = () => {
       <EngineeringAIModal
         isOpen={isAIModalOpen}
         onClose={() => setIsAIModalOpen(false)}
+      />
+
+      {/* Crypto AI Modal */}
+      <CryptoAIModal
+        isOpen={isCryptoAIModalOpen}
+        onClose={() => setIsCryptoAIModalOpen(false)}
       />
     </div>
   );
