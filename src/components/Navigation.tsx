@@ -37,7 +37,7 @@ const Navigation = () => {
   };
 
   const navLinks = [
-    { name: 'Engenharia', slug: 'engenharia', href: '/?category=engenharia' },
+    { name: 'Engenharia', slug: 'engenharia', href: '/engineering' },
     { name: 'Notícias', slug: 'noticias', href: '/noticias' },
     { name: 'Crypto', slug: 'crypto', href: '/?category=crypto' },
     { name: 'Música', slug: 'music', href: '/?category=music' },
