@@ -200,7 +200,7 @@ export default function Engineering() {
                 title: "Análise de Estabilidade de Taludes",
                 description: "Estudo geotécnico para análise de estabilidade em encostas com diferentes métodos.",
                 category: "Geotecnia",
-                image: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&h=300&fit=crop&crop=center"
+                image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Dimensionamento de Pavimento",
@@ -218,13 +218,13 @@ export default function Engineering() {
                 title: "Rede de Distribuição de Água",
                 description: "Sistema de abastecimento de água com dimensionamento de tubulações e reservatórios.",
                 category: "Hidráulica",
-                image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=400&h=300&fit=crop&crop=center"
+                image: "https://images.unsplash.com/photo-1581092160562-40aa4082da6d?w=400&h=300&fit=crop&crop=center"
               },
               {
                 title: "Terraplanagem e Movimento de Terra",
                 description: "Projeto de terraplanagem com cálculo de volumes e otimização de corte e aterro.",
                 category: "Topografia",
-                image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=300&fit=crop&crop=center"
+                image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&h=300&fit=crop&crop=center"
               }
             ].map((project, index) => (
               <Card key={index} className="hover:shadow-lg transition-all duration-300 hover-scale bg-card border-border">
