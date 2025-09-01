@@ -75,7 +75,7 @@ const HomePage = () => {
             {/* Coluna 2: Imagem */}
             <div className="flex justify-center">
               <img 
-                src={autocadImage} 
+                src="/lovable-uploads/9738989c-ef4b-4c6e-9aa1-02023a20c9c9.png" 
                 alt="Autocad Civil 3D" 
                 className="rounded-lg shadow-2xl w-full h-auto max-w-sm"
               />
