@@ -156,7 +156,7 @@ export default function Engineering() {
 
       {/* Latest Engineering Video Section - Dark Theme */}
       <section className="py-16 px-4 bg-slate-900 w-screen -mx-[50vw] left-1/2">
-        <div className="w-full max-w-none mx-auto lg:max-w-[70%]">
+        <div className="relative z-10 w-full max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-white mb-8">
             Último Vídeo de Engenharia
           </h2>
