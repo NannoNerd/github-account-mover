@@ -38,12 +38,12 @@ export function ProfileSidebar() {
 
   return (
     <Sidebar
-      className={`${state === "collapsed" ? "w-14" : "w-64"} lg:relative lg:translate-x-0`}
+      className={`${state === "collapsed" ? "w-14" : "w-64"} h-screen border-r`}
       variant="sidebar"
       side="left"
     >
-      <SidebarContent className="bg-background border-r">
-        <div className="p-4">
+      <SidebarContent className="bg-background border-r overflow-y-auto">
+        <div className="p-4 border-b">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
               <User className="h-5 w-5 text-primary-foreground" />
@@ -57,7 +57,7 @@ export function ProfileSidebar() {
           </div>
         </div>
 
-        <SidebarGroup>
+        <SidebarGroup className="px-2">
           <SidebarGroupLabel>Menu</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
