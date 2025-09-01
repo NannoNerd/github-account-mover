@@ -51,13 +51,13 @@ export default function Engineering() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
+      {/* Hero Section - Full Width */}
+      <section className="relative py-20 px-4 text-center bg-gradient-to-br from-background via-background/95 to-primary/5 w-full">
         <div 
           className="absolute inset-0 opacity-10 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage})` }}
         />
-        <div className="relative z-10 container mx-auto max-w-4xl">
+        <div className="relative z-10 w-full max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
             Engenharia Civil & Tecnologia
           </h1>
@@ -86,9 +86,9 @@ export default function Engineering() {
         </div>
       </section>
 
-      {/* AI Command Generation Section */}
+      {/* AI Command Generation Section - 70% Width on Desktop */}
       <section className="py-16 px-4">
-        <div className="container mx-auto max-w-7xl">
+        <div className="w-full max-w-none mx-auto lg:max-w-[70%]">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Geração de Comandos por IA
@@ -158,9 +158,9 @@ export default function Engineering() {
         </div>
       </section>
 
-      {/* Latest Engineering Video Section */}
+      {/* Latest Engineering Video Section - 70% Width on Desktop */}
       <section className="py-16 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-4xl">
+        <div className="w-full max-w-none mx-auto lg:max-w-[70%]">
           <h2 className="text-3xl font-bold text-center text-foreground mb-8">
             Último Vídeo de Engenharia
           </h2>
