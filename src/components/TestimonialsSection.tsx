@@ -1,7 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
+
+// Import testimonial images
+import carlosSilvaImg from '@/assets/carlos-silva.jpg';
+import mariaSantosImg from '@/assets/maria-santos.jpg';
+import joaoPedroImg from '@/assets/joao-pedro.jpg';
+import anaCostImg from '@/assets/ana-costa.jpg';
 
 interface Testimonial {
   id: number;
@@ -9,6 +15,7 @@ interface Testimonial {
   role: string;
   content: string;
   initials: string;
+  image: string;
 }
 
 const testimonials: Testimonial[] = [
@@ -17,28 +24,32 @@ const testimonials: Testimonial[] = [
     name: "Carlos Silva",
     role: "Arquiteto",
     content: "Excelente plataforma para aprender sobre tecnologia e inovação. Muito útil!",
-    initials: "CS"
+    initials: "CS",
+    image: carlosSilvaImg
   },
   {
     id: 2,
     name: "Maria Santos",
     role: "Engenheira Civil",
     content: "Os recursos de IA são incríveis! Me ajudam muito no meu trabalho diário.",
-    initials: "MS"
+    initials: "MS",
+    image: mariaSantosImg
   },
   {
     id: 3,
     name: "João Pedro",
     role: "Desenvolvedor",
     content: "Conteúdo de qualidade e sempre atualizado. Recomendo para todos!",
-    initials: "JP"
+    initials: "JP",
+    image: joaoPedroImg
   },
   {
     id: 4,
     name: "Ana Costa",
     role: "Designer",
     content: "Interface intuitiva e funcionalidades que realmente fazem a diferença.",
-    initials: "AC"
+    initials: "AC",
+    image: anaCostImg
   }
 ];
 
@@ -131,6 +142,7 @@ const TestimonialsSection = () => {
             <div className="text-center space-y-6">
               {/* Avatar */}
               <Avatar className="w-20 h-20 mx-auto border-2 border-cyan-400">
+                <AvatarImage src={currentTestimonial.image} alt={currentTestimonial.name} />
                 <AvatarFallback className="bg-slate-600 text-white text-lg font-semibold">
                   {currentTestimonial.initials}
                 </AvatarFallback>
