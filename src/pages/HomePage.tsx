@@ -65,8 +65,8 @@ const HomePage = () => {
               <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
                 Desenvolva suas habilidades em modelagem, projetos de infraestrutura e análise de terrenos com nossas aulas especializadas de Autocad Civil 3D.
               </p>
-              <Button asChild variant="outline" size="lg" className="border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
-                <Link to="/?category=engenharia">
+              <Button asChild variant="outline" size="lg" className="bg-white border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white">
+                <Link to="/engineering">
                   Saiba Mais
                 </Link>
               </Button>
@@ -82,7 +82,7 @@ const HomePage = () => {
             </div>
             
             {/* Coluna 3: Engenharia e Designer */}
-            <div className="text-center">
+            <div className="text-center border border-gray-300 rounded-lg p-6">
               <div className="bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Cog className="h-8 w-8 text-white" />
               </div>
