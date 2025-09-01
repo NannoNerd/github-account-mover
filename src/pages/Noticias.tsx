@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Clock, Eye, Calendar, Play } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Clock, Eye, Calendar, Play, Search } from 'lucide-react';
 import DOMPurify from 'dompurify';
 
 interface Post {
@@ -45,6 +46,7 @@ export default function Noticias() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     loadContent();
@@ -96,15 +98,26 @@ export default function Noticias() {
     }
   };
 
+  // Filter content based on search term
+  const filteredPosts = posts.filter(post => 
+    post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const filteredVideos = videos.filter(video =>
+    video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    video.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <section className="relative py-16 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
+        <section className="relative py-8 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
           <div className="container mx-auto px-4 max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
               Notícias & Conteúdo
             </h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-lg text-muted-foreground mb-4">
               Carregando conteúdo...
             </p>
           </div>
@@ -116,12 +129,12 @@ export default function Noticias() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-16 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
+      <section className="relative py-8 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             Notícias & Conteúdo
           </h1>
-          <p className="text-xl text-muted-foreground mb-8">
+          <p className="text-lg text-muted-foreground mb-4">
             Fique por dentro das últimas novidades em engenharia, tecnologia, 
             criptomoedas e muito mais.
           </p>
@@ -131,8 +144,19 @@ export default function Noticias() {
       {/* Content Section */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
+          {/* Search Bar */}
+          <div className="relative max-w-md mx-auto mb-8">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              placeholder="Buscar por posts e vídeos..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsList className="grid w-full grid-cols-2 mb-8 max-w-md mx-auto">
               <TabsTrigger value="posts" className="text-lg py-3">
                 Posts & Artigos
               </TabsTrigger>
@@ -144,7 +168,7 @@ export default function Noticias() {
             {/* Posts Tab */}
             <TabsContent value="posts" className="space-y-8">
             {/* Featured Post */}
-            {posts.filter(post => posts.indexOf(post) === 0).map((post) => (
+            {filteredPosts.filter(post => filteredPosts.indexOf(post) === 0).map((post) => (
               <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="md:flex">
                   <div className="md:w-1/2">
@@ -189,7 +213,7 @@ export default function Noticias() {
 
             {/* Regular Posts Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.slice(1).map((post) => (
+              {filteredPosts.slice(1).map((post) => (
                 <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <div className="aspect-video overflow-hidden">
                     <img 
@@ -235,7 +259,7 @@ export default function Noticias() {
           {/* Videos Tab */}
           <TabsContent value="videos" className="space-y-8">
             {/* Featured Video */}
-            {videos.filter(video => videos.indexOf(video) === 0).map((video) => (
+            {filteredVideos.filter(video => filteredVideos.indexOf(video) === 0).map((video) => (
                 <Card key={video.id} className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                   <div className="md:flex">
                   <div className="md:w-1/2 relative">
@@ -290,7 +314,7 @@ export default function Noticias() {
 
             {/* Regular Videos Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {videos.slice(1).map((video) => (
+              {filteredVideos.slice(1).map((video) => (
                 <Card key={video.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                   <div className="aspect-video overflow-hidden relative">
                     <img 
@@ -348,6 +372,15 @@ export default function Noticias() {
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">
               Nenhum conteúdo publicado ainda.
+            </p>
+          </div>
+        )}
+        
+        {/* No search results message */}
+        {searchTerm && filteredPosts.length === 0 && filteredVideos.length === 0 && (posts.length > 0 || videos.length > 0) && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              Nenhum resultado encontrado para "{searchTerm}".
             </p>
           </div>
         )}
