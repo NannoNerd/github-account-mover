@@ -20,6 +20,7 @@ import Engineering from "./pages/Engineering";
 import AutoCADCivil3D from "./pages/AutoCADCivil3D";
 import Motivacional from "./pages/Motivacional";
 import Criptomoedas from "./pages/Criptomoedas";
+import Noticias from "./pages/Noticias";
 
 const queryClient = new QueryClient();
 
@@ -127,6 +128,14 @@ const App = () => (
                 element={
                   <main className="container mx-auto max-w-7xl px-4">
                     <Criptomoedas />
+                  </main>
+                } 
+              />
+              <Route 
+                path="/noticias" 
+                element={
+                  <main className="container mx-auto max-w-7xl px-4">
+                    <Noticias />
                   </main>
                 } 
               />
