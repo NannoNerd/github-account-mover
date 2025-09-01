@@ -124,7 +124,8 @@ export default function Noticias() {
       case 'engenharia': return 'bg-orange-500';
       case 'crypto': return 'bg-yellow-500';
       case 'motivacional': return 'bg-green-500';
-      case 'music': return 'bg-purple-500';
+      case 'música': return 'bg-purple-500';
+      case 'musica': return 'bg-purple-500';
       default: return 'bg-gray-500';
     }
   };
@@ -166,12 +167,12 @@ export default function Noticias() {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <section className="relative py-8 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
+        <section className="relative py-4 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
           <div className="container mx-auto px-4 max-w-4xl">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
               Notícias & Conteúdo
             </h1>
-            <p className="text-lg text-muted-foreground mb-4">
+            <p className="text-base text-muted-foreground mb-2">
               Carregando conteúdo...
             </p>
           </div>
@@ -183,12 +184,12 @@ export default function Noticias() {
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="relative py-8 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
+      <section className="relative py-4 text-center bg-gradient-to-br from-background via-background/95 to-primary/5">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
             Notícias & Conteúdo
           </h1>
-          <p className="text-lg text-muted-foreground mb-4">
+          <p className="text-base text-muted-foreground mb-2">
             Fique por dentro das últimas novidades em engenharia, tecnologia, 
             criptomoedas e muito mais.
           </p>
