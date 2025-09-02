@@ -12,6 +12,7 @@ import CreateContent from "./pages/CreateContent";
 import PostView from "./pages/PostView";
 import VideoView from "./pages/VideoView";
 import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import ComingSoonCrypto from "./pages/ComingSoonCrypto";
 import ComingSoonMusic from "./pages/ComingSoonMusic";
@@ -56,6 +57,14 @@ const App = () => (
                 element={
                   <main className="container mx-auto max-w-7xl px-4">
                     <Profile />
+                  </main>
+                } 
+              />
+              <Route 
+                path="/profile/settings" 
+                element={
+                  <main className="container mx-auto max-w-7xl px-4">
+                    <Settings />
                   </main>
                 } 
               />
