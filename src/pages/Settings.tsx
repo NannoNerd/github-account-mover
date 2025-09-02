@@ -57,22 +57,6 @@ export default function Settings() {
     },
   });
 
-  // Redirect if not authenticated
-  if (!loading && !user) {
-    return <Navigate to="/auth" replace />;
-  }
-
-  if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">Carregando...</div>;
-  }
-
-  useEffect(() => {
-    if (user) {
-      fetchProfile();
-      fetchCategories();
-    }
-  }, [user]);
-
   const fetchProfile = async () => {
     if (!user) return;
 
@@ -109,6 +93,23 @@ export default function Settings() {
 
     setCategories(data || []);
   };
+
+  // Move useEffect before any conditional returns
+  useEffect(() => {
+    if (user) {
+      fetchProfile();
+      fetchCategories();
+    }
+  }, [user]);
+
+  // Redirect if not authenticated
+  if (!loading && !user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">Carregando...</div>;
+  }
 
   const onSettingsSubmit = async (data: SettingsForm) => {
     if (!user) return;
