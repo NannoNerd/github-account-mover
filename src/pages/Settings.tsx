@@ -7,8 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,11 +14,11 @@ import * as z from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Separator } from "@/components/ui/separator";
+import { AvatarUpload } from "@/components/AvatarUpload";
 import { Trash2, Plus } from "lucide-react";
 
 const settingsSchema = z.object({
   display_name: z.string().min(1, "Nome de exibição é obrigatório"),
-  avatar_url: z.string().url("URL inválida").optional().or(z.literal("")),
 });
 
 const passwordSchema = z.object({
@@ -47,7 +45,6 @@ export default function Settings() {
     resolver: zodResolver(settingsSchema),
     defaultValues: {
       display_name: "",
-      avatar_url: "",
     },
   });
 
@@ -95,7 +92,6 @@ export default function Settings() {
       setIsAdmin(data.role === 'admin');
       settingsForm.reset({
         display_name: data.display_name || "",
-        avatar_url: data.avatar_url || "",
       });
     }
   };
@@ -121,7 +117,6 @@ export default function Settings() {
       .from('profiles')
       .update({
         display_name: data.display_name,
-        avatar_url: data.avatar_url || null,
       })
       .eq('user_id', user.id);
 
@@ -248,39 +243,33 @@ export default function Settings() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Form {...settingsForm}>
-                  <form onSubmit={settingsForm.handleSubmit(onSettingsSubmit)} className="space-y-4">
-                    <FormField
-                      control={settingsForm.control}
-                      name="display_name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Nome de Exibição</FormLabel>
-                          <FormControl>
-                            <Input {...field} placeholder="Seu nome de exibição" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={settingsForm.control}
-                      name="avatar_url"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>URL do Avatar</FormLabel>
-                          <FormControl>
-                            <Input {...field} placeholder="https://exemplo.com/avatar.jpg" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <Button type="submit">Salvar Alterações</Button>
-                  </form>
-                </Form>
+                <div className="space-y-6">
+                  <AvatarUpload
+                    currentAvatarUrl={profile?.avatar_url}
+                    onAvatarUpdate={() => fetchProfile()}
+                    userId={user.id}
+                  />
+                  
+                  <Form {...settingsForm}>
+                    <form onSubmit={settingsForm.handleSubmit(onSettingsSubmit)} className="space-y-4">
+                      <FormField
+                        control={settingsForm.control}
+                        name="display_name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nome de Exibição</FormLabel>
+                            <FormControl>
+                              <Input {...field} placeholder="Seu nome de exibição" />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <Button type="submit">Salvar Alterações</Button>
+                    </form>
+                  </Form>
+                </div>
               </CardContent>
             </Card>
 
