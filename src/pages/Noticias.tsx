@@ -214,9 +214,9 @@ export default function Noticias() {
           {filteredContent.length > 0 && (
             <div className="mb-8">
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="md:flex">
+                <div className="md:flex md:h-80">
                   <div className="md:w-1/2 relative">
-                    <div className="aspect-video">
+                    <div className="aspect-video md:aspect-none md:h-full">
                       <img 
                         src={filteredContent[0].image_url} 
                         alt={filteredContent[0].title}
