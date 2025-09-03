@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Clock, Eye, Calendar, Play, Search } from 'lucide-react';
 import DOMPurify from 'dompurify';
 
@@ -22,6 +23,10 @@ interface Post {
   updated_at: string;
   slug: string;
   category_id?: string;
+  profiles?: {
+    display_name: string | null;
+    avatar_url: string | null;
+  } | null;
 }
 
 interface Video {
@@ -54,10 +59,14 @@ interface ContentItem {
   category: string;
   duration?: string;
   youtube_video_id?: string;
+  author?: {
+    display_name: string | null;
+    avatar_url: string | null;
+  };
 }
 
 export default function Noticias() {
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [posts, setPosts] = useState<any[]>([]);
   const [videos, setVideos] = useState<Video[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -82,10 +91,16 @@ export default function Noticias() {
         setCategories(categoriesData || []);
       }
       
-      // Load published posts
+      // Load published posts with author info
       const { data: postsData, error: postsError } = await supabase
         .from('posts')
-        .select('*')
+        .select(`
+          *,
+          profiles:author_id (
+            display_name,
+            avatar_url
+          )
+        `)
         .eq('published', true)
         .order('created_at', { ascending: false });
 
@@ -141,7 +156,11 @@ export default function Noticias() {
       created_at: post.created_at,
       slug: post.slug,
       type: 'post' as const,
-      category: getCategoryName(post.category_id || '')
+      category: getCategoryName(post.category_id || ''),
+      author: post.profiles ? {
+        display_name: post.profiles.display_name,
+        avatar_url: post.profiles.avatar_url
+      } : undefined
     })),
     ...videos.map(video => ({
       id: video.id,
@@ -215,7 +234,7 @@ export default function Noticias() {
             <div className="mb-8">
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
                 <div className="md:flex md:h-96">
-                  <div className="md:w-1/2 relative">
+                  <div className="md:w-3/5 relative">
                     <div className="aspect-video md:aspect-none md:h-full">
                       <img 
                         src={filteredContent[0].image_url} 
@@ -247,33 +266,55 @@ export default function Noticias() {
                       </Badge>
                     </div>
                   </div>
-                  <div className="md:w-1/2 p-6 md:px-8 md:py-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <Badge variant="outline">Destaque</Badge>
-                    </div>
-                    <h2 className="text-2xl font-bold text-foreground mb-4">
-                      {filteredContent[0].title}
-                    </h2>
-                    <div 
-                      className="text-muted-foreground mb-6 line-clamp-3"
-                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(filteredContent[0].description) }}
-                    />
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {new Date(filteredContent[0].created_at).toLocaleDateString('pt-BR')}
+                  <div className="md:w-2/5 p-6 md:px-8 md:py-6 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 mb-4">
+                        <Badge variant="outline">Destaque</Badge>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Eye className="h-4 w-4" />
-                        {filteredContent[0].views_count.toLocaleString()}
-                      </div>
+                      <h2 className="text-2xl font-bold text-foreground mb-4">
+                        {filteredContent[0].title}
+                      </h2>
+                      <div 
+                        className="text-muted-foreground mb-6 line-clamp-3"
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(filteredContent[0].description) }}
+                      />
                     </div>
-                    <Link to={`/${filteredContent[0].type}/${filteredContent[0].slug}`}>
-                      <Button className="w-full md:w-auto">
-                        {filteredContent[0].type === 'video' && <Play className="h-4 w-4 mr-2" />}
-                        {filteredContent[0].type === 'post' ? 'Ler Artigo Completo' : 'Assistir Vídeo'}
-                      </Button>
-                    </Link>
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            {new Date(filteredContent[0].created_at).toLocaleDateString('pt-BR')}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Eye className="h-4 w-4" />
+                            {filteredContent[0].views_count.toLocaleString()}
+                          </div>
+                        </div>
+                        <Link to={`/${filteredContent[0].type}/${filteredContent[0].slug}`}>
+                          <Button size="sm">
+                            {filteredContent[0].type === 'video' && <Play className="h-4 w-4 mr-2" />}
+                            {filteredContent[0].type === 'post' ? 'Ler Artigo Completo' : 'Assistir Vídeo'}
+                          </Button>
+                        </Link>
+                      </div>
+                      {filteredContent[0].author && (
+                        <div className="flex items-center gap-3 pt-4 border-t border-border">
+                          <Avatar className="h-8 w-8">
+                            <AvatarImage src={filteredContent[0].author.avatar_url || undefined} />
+                            <AvatarFallback>
+                              {filteredContent[0].author.display_name?.charAt(0).toUpperCase() || 'A'}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="text-sm">
+                            <p className="font-medium text-foreground">
+                              {filteredContent[0].author.display_name || 'Autor Anônimo'}
+                            </p>
+                            <p className="text-muted-foreground">Autor</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </Card>
