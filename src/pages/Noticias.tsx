@@ -214,7 +214,7 @@ export default function Noticias() {
           {filteredContent.length > 0 && (
             <div className="mb-8">
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div className="md:flex md:h-80">
+                <div className="md:flex md:h-96">
                   <div className="md:w-1/2 relative">
                     <div className="aspect-video md:aspect-none md:h-full">
                       <img 
@@ -247,33 +247,37 @@ export default function Noticias() {
                       </Badge>
                     </div>
                   </div>
-                  <div className="md:w-1/2 p-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <Badge variant="outline">Destaque</Badge>
-                    </div>
-                    <h2 className="text-2xl font-bold text-foreground mb-3">
-                      {filteredContent[0].title}
-                    </h2>
-                    <div 
-                      className="text-muted-foreground mb-4"
-                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(filteredContent[0].description) }}
-                    />
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {new Date(filteredContent[0].created_at).toLocaleDateString('pt-BR')}
+                  <div className="md:w-1/2 p-6 md:pl-8 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 mb-3">
+                        <Badge variant="outline">Destaque</Badge>
                       </div>
-                      <div className="flex items-center gap-1">
-                        <Eye className="h-4 w-4" />
-                        {filteredContent[0].views_count.toLocaleString()}
+                      <h2 className="text-2xl font-bold text-foreground mb-3">
+                        {filteredContent[0].title}
+                      </h2>
+                      <div 
+                        className="text-muted-foreground mb-4"
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(filteredContent[0].description) }}
+                      />
+                      <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="h-4 w-4" />
+                          {new Date(filteredContent[0].created_at).toLocaleDateString('pt-BR')}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Eye className="h-4 w-4" />
+                          {filteredContent[0].views_count.toLocaleString()}
+                        </div>
                       </div>
                     </div>
-                    <Link to={`/${filteredContent[0].type}/${filteredContent[0].slug}`}>
-                      <Button className="w-full md:w-auto">
-                        {filteredContent[0].type === 'video' && <Play className="h-4 w-4 mr-2" />}
-                        {filteredContent[0].type === 'post' ? 'Ler Artigo Completo' : 'Assistir Vídeo'}
-                      </Button>
-                    </Link>
+                    <div>
+                      <Link to={`/${filteredContent[0].type}/${filteredContent[0].slug}`}>
+                        <Button className="w-full md:w-auto">
+                          {filteredContent[0].type === 'video' && <Play className="h-4 w-4 mr-2" />}
+                          {filteredContent[0].type === 'post' ? 'Ler Artigo Completo' : 'Assistir Vídeo'}
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </Card>
